@@ -1,0 +1,20 @@
+.app-game-card {
+  display: inline-block;
+  margin: 10px;
+  border: 2px solid #ccc;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+  background: #ccc;
+  cursor: pointer;
+}
+
+.app-js-game-card_guessed {
+  border-color: #77f;
+}
+
+.app-js-game-card_opened {
+  border-color: #7cf;
+  background: #aaf;
+}
