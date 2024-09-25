@@ -23,7 +23,7 @@
   // ## Functions
   function createBoard() {
     const gameBoardElement = document.getElementById(gameHTMLIdentifier);
-    const images = GameBoard.shuffle([...imagesList, ...imagesList]);
+    const images = GameBoard.createImagesList(imagesList);
     images.forEach(image => {
       const gameCardComponent = new GameCardComponent(image);
       gameCardComponent.subscribeToOpen(() => {
