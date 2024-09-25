@@ -4,12 +4,13 @@
   // # Modules
   const {
     GameBoard,
+    GameBoardComponent,
     GameCardComponent,
   } = window.module;
 
 
   // # Configuration
-  const gameHTMLIdentifier = 'app-js-game';
+  const gameRootHTMLIdentifier = 'app-js-game';
   const imagesList = ['🍎', '🍌', '🍒'];
 
 
@@ -22,32 +23,36 @@
 
   // ## Functions
   function createBoard() {
-    const gameBoardElement = document.getElementById(gameHTMLIdentifier);
     const images = GameBoard.createImagesList(imagesList);
+    const gameRootElement = document.getElementById(gameRootHTMLIdentifier);
+    const gameBoardComponent = new GameBoardComponent();
+    const gameBoardElement = gameBoardComponent.getElement();
     images.forEach(image => {
       const gameCardComponent = new GameCardComponent(image);
       gameCardComponent.subscribeToOpen(() => {
-        selectCard(gameCardComponent);
+        selectCard(gameBoardComponent, gameCardComponent);
       });
       const gameCardElement = gameCardComponent.getElement();
       gameBoardElement.appendChild(gameCardElement);
     });
+    gameRootElement.appendChild(gameBoardElement);
   }
 
-  function selectCard(gameCardComponent) {
+  function selectCard(gameBoardComponent, gameCardComponent) {
     if (boardIsLocked || gameCardComponent === card1) return;
 
     if (!card1) {
       card1 = gameCardComponent;
     } else {
       card2 = gameCardComponent;
+      gameBoardComponent.lock();
       boardIsLocked = true;
 
-      checkForMatch(card1, card2);
+      checkForMatch(gameBoardComponent, card1, card2);
     }
   }
 
-  function checkForMatch(card1, card2) {
+  function checkForMatch(gameBoardComponent, card1, card2) {
     const isMatch = card1.imageURL === card2.imageURL;
     setTimeout(() => {
       if (isMatch) {
@@ -59,16 +64,14 @@
         card1.close();
         card2.close();
       }
-      resetBoard();
+      resetBoard(gameBoardComponent);
     }, 1000);
   }
 
-  function resetBoard() {
+  function resetBoard(gameBoardComponent) {
+    gameBoardComponent.unlock();
     boardIsLocked = false;
     card1 = null;
     card2 = null;
   }
-
-
-  // # Auxiliary functions
 })();
