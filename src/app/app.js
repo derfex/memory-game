@@ -1,6 +1,14 @@
 (function () {
   'use strict';
 
+
+  // # Authorization
+  if (prompt('Password', '') !== 'fox') {
+    document.body.innerHTML = '<h1 style="font-size: 42px; text-align: center">Error 404: Page not found</h1>';
+    return;
+  }
+
+
   // # Modules
   const {
     GameBoard,
