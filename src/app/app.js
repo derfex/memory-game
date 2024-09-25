@@ -6,12 +6,12 @@
     GameBoard,
     GameBoardComponent,
     GameCardComponent,
+    ImagesList,
   } = window.module;
 
 
   // # Configuration
   const gameRootHTMLIdentifier = 'app-js-game';
-  const imagesList = ['🍎', '🍌', '🍒'];
 
 
   // # Game
@@ -23,7 +23,7 @@
 
   // ## Functions
   function createBoard() {
-    const images = GameBoard.createImagesList(imagesList);
+    const images = GameBoard.createImagesList(ImagesList);
     const gameRootElement = document.getElementById(gameRootHTMLIdentifier);
     const gameBoardComponent = new GameBoardComponent();
     const gameBoardElement = gameBoardComponent.getElement();
